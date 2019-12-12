@@ -8,4 +8,6 @@ void Sensor_CalculateSumValue(void);
 
 int16_t Sensor_ReadSumValue(void);
 
+void Sensor_ResetSumValue(void);
+
 #endif

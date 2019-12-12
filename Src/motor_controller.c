@@ -1,5 +1,6 @@
 #include "user_define.h"
 #include "motor_controller.h"
+#include "tim.h"
 
 void Motor_Init (void){
 	HAL_TIM_PWM_Start(&MOTOR0_TIMER,MOTOR0_CHANNEL);
@@ -32,7 +33,9 @@ void Motor_Set_Speed(motor_t motor,int16_t speed){
 			HAL_GPIO_WritePin(MOTOR0_DIR0_PORT,MOTOR0_DIR0_PIN,GPIO_PIN_SET);
 			HAL_GPIO_WritePin(MOTOR0_DIR1_PORT,MOTOR0_DIR1_PIN,GPIO_PIN_RESET);
 #endif
+				speed=abs(speed);
 			}
+			__HAL_TIM_SET_COMPARE(&MOTOR0_TIMER,MOTOR0_CHANNEL,speed);
 		}
 		case MOTOR_1:
 		{
@@ -53,7 +56,9 @@ void Motor_Set_Speed(motor_t motor,int16_t speed){
 			HAL_GPIO_WritePin(MOTOR1_DIR0_PORT,MOTOR1_DIR0_PIN,GPIO_PIN_SET);
 			HAL_GPIO_WritePin(MOTOR1_DIR1_PORT,MOTOR1_DIR1_PIN,GPIO_PIN_RESET);
 #endif
+				speed=abs(speed);
 			}
+			__HAL_TIM_SET_COMPARE(&MOTOR1_TIMER,MOTOR1_CHANNEL,speed);
 		}
 	}
 }

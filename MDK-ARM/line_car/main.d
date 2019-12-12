@@ -34,4 +34,5 @@ line_car\main.o: ../Inc/gpio.h
 line_car\main.o: ../Inc/control_motor_line.h
 line_car\main.o: ../Inc/PID.h
 line_car\main.o: ../Inc/motor_controller.h
+line_car\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 line_car\main.o: ../Inc/sensor_handling.h

@@ -44,7 +44,7 @@ typedef enum{
 
 typedef enum{
 	HC05_WAIT_START=0,
-	HC05_APP=1,
+	HC05_APP,
 }HC05_t;
 /* USER CODE END PTD */
 
@@ -85,6 +85,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			Control_CalculateValuePosition(Sensor_ReadSumValue());
 			PID_PROCESS(&PID_set_parameters,Control_ReadValuePosition(),0);
 			Control_SetMotorLine(PID_ReadValue(&PID_set_parameters),Control_ReadValuePosition());
+			Sensor_ResetSumValue();
 	  }
 		else if (mode_status==CONTROL_BY_HAND)
 		{
@@ -136,7 +137,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				}
 				else if(Rx_buff[0] == 'k' ){
 					mode_status=CONTROL_BY_HAND;
-					HC05_status=HC05_APP;
+					HC05_status=HC05_WAIT_START;
 					HAL_UART_Receive_DMA(&huart1,Rx_buff,1);
 				}
 			}
@@ -180,6 +181,7 @@ int main(void)
   MX_DMA_Init();
   /* USER CODE BEGIN 2 */
   Motor_Init();
+	HAL_TIM_Base_Start_IT(&htim3);
 	HAL_UART_Receive_DMA(&huart1,Rx_buff,1);
   /* USER CODE END 2 */
 

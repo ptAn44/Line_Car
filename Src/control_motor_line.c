@@ -50,28 +50,32 @@ void Control_SetMotorLine(float value_position_PID,float ValuePosition)
 	{
 		if(ValuePosition>1.5)
 		{
-			Motor_Set_Speed(MOTOR_0,-150);
+			Motor_Set_Speed(MOTOR_0,150);
 			Motor_Set_Speed(MOTOR_1,value_position_PID);
 		}
 		else
 		{
 			Motor_Set_Speed(MOTOR_0,0);
-			Motor_Set_Speed(MOTOR_1,value_position_PID);
+			Motor_Set_Speed(MOTOR_1,value_position_PID);	
 		}
 	}
 	if(value_position_PID<0)
 	{
 		if(ValuePosition<-1.5)
 		{
-			Motor_Set_Speed(MOTOR_0,(value_position_PID*-1));
-			Motor_Set_Speed(MOTOR_1,-150);
+			Motor_Set_Speed(MOTOR_0,value_position_PID);
+			Motor_Set_Speed(MOTOR_1,150);
 		}
 		else
 		{
-			Motor_Set_Speed(MOTOR_0,(value_position_PID*-1));
+			Motor_Set_Speed(MOTOR_0,value_position_PID);
 			Motor_Set_Speed(MOTOR_1,0);
 		}
 	}
+}
+	
+float Control_ReadValuePrePosition(void){
+	return pre_position_sensor;
 }
 	
 
@@ -91,16 +95,19 @@ void Control_MotorByHand(uint8_t direction){
 		{
 			Motor_Set_Speed(MOTOR_0,200);
 			Motor_Set_Speed(MOTOR_1,100);
+			break;
 		}
 		case 'f':
 		{
 			Motor_Set_Speed(MOTOR_0,210);
 			Motor_Set_Speed(MOTOR_1,210);
+			break;
 		}
 		case 'b':
 		{
 			Motor_Set_Speed(MOTOR_0,-210);
 			Motor_Set_Speed(MOTOR_1,-210);
+			break;
 		}
 	}
 }

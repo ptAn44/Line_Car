@@ -2,7 +2,7 @@
 #define _MOTOR_CONTROLLER_H_
 
 #include "tim.h"
-#include <stdint.h>
+#include <stdlib.h>
 
 typedef enum{
 	MOTOR_0,

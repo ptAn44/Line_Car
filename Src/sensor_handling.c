@@ -2,8 +2,8 @@
 #include "user_define.h"
 
 int16_t ReadSensor[4];
-int16_t SumIndexArrySensor;
-
+int16_t SumIndexArrySensor=0;
+int i;
 
 
 void Sensor_CalculateSumValue(void){
@@ -12,7 +12,7 @@ void Sensor_CalculateSumValue(void){
 	ReadSensor[2] = HAL_GPIO_ReadPin(SENSOR2_DIR_PORT,SENSOR2_DIR_PIN);  //3
 	ReadSensor[3] = HAL_GPIO_ReadPin(SENSOR3_DIR_PORT,SENSOR3_DIR_PIN);  //1
 	
-	for(int i=0;i<=3;i++){
+	for(i=0;i<=3;i++){
 		if(ReadSensor[i]==0){
 			SumIndexArrySensor+=2*i+1;
 		}
@@ -22,4 +22,8 @@ void Sensor_CalculateSumValue(void){
 
 int16_t Sensor_ReadSumValue(void){
 	return SumIndexArrySensor;
+}
+
+void Sensor_ResetSumValue(void){
+	SumIndexArrySensor=0;
 }
