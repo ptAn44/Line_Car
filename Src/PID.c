@@ -9,9 +9,9 @@ void PID_SET_PARAMs(PID_parameter* pid_parameters,float Kp,float Ki,float Kd)
 }
 void PID_PROCESS(PID_parameter* pid_parameter, float vitri,float setpoint)   //setpoint = 0;
 {
-		pid_parameter->error =  vitri - setpoint;
     pid_parameter->pre2_error = pid_parameter->pre_error;
     pid_parameter->pre_error = pid_parameter->error;
+	  pid_parameter->error =  vitri - setpoint;
     
     pid_parameter->pre_Out = pid_parameter->Out;
 

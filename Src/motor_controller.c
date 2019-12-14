@@ -36,6 +36,7 @@ void Motor_Set_Speed(motor_t motor,int16_t speed){
 				speed=abs(speed);
 			}
 			__HAL_TIM_SET_COMPARE(&MOTOR0_TIMER,MOTOR0_CHANNEL,speed);
+			break;
 		}
 		case MOTOR_1:
 		{

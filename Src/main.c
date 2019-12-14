@@ -28,9 +28,14 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <control_motor_line.h>
-
-PID_parameter PID_set_parameters = {.Kp =40,.Ki=0.0001,.Kd=25,.Ts = 0.005,.PID_Saturation = 180
+PID_parameter PID_SetParameters= {.Kp =40,.Ki=0.0001,.Kd=25,.Ts = 0.005,.PID_Saturation = 180
 																			,.error =0,.pre_error =0,.pre2_error=0,.pre_Out =0,.Out = 0};
+
+//PID_parameter PID_SetParametersRight= {.Kp =40,.Ki=0.0001,.Kd=25,.Ts = 0.005,.PID_Saturation = 180
+//																			,.error =0,.pre_error =0,.pre2_error=0,.pre_Out =0,.Out = 0};																
+//PID_parameter PID_SetParametersLeft= {.Kp =40,.Ki=0.0001,.Kd=25,.Ts = 0.005,.PID_Saturation = 180
+//																			,.error =0,.pre_error =0,.pre2_error=0,.pre_Out =0,.Out = 0};
+
 
 /* USER CODE END Includes */
 
@@ -79,13 +84,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance==htim3.Instance)
 	{
+				
 		if(mode_status == LINE_CAPTURE)
 		{
 			Sensor_CalculateSumValue();
 			Control_CalculateValuePosition(Sensor_ReadSumValue());
-			PID_PROCESS(&PID_set_parameters,Control_ReadValuePosition(),0);
-			Control_SetMotorLine(PID_ReadValue(&PID_set_parameters),Control_ReadValuePosition());
 			Sensor_ResetSumValue();
+			PID_PROCESS(&PID_SetParameters,Control_ReadValuePosition(),0);
+			Control_SetMotorLine(PID_ReadValue(&PID_SetParameters),Control_ReadValuePosition());
 	  }
 		else if (mode_status==CONTROL_BY_HAND)
 		{
@@ -170,6 +176,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+	
 
   /* USER CODE END SysInit */
 
@@ -189,7 +196,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		Sensor_ResetSumValue();
     /* USER CODE END WHILE */
+		
+	//	Sensor_ResetSumValue();
+		//		if (Sensor_ReadSumValue() == 0)
+//		{
+//				Sensor_ResetSumValue();
+//		}
+		
 
     /* USER CODE BEGIN 3 */
   }

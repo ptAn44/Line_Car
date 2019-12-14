@@ -1,38 +1,59 @@
 #include <control_motor_line.h>
 
 float position_sensor;
-float pre_position_sensor;
+//float pre_position_sensor;
 
 
-void Control_CalculateValuePosition(int16_t valueSensor){
+void Control_CalculateValuePosition(int valueSensor){
 	switch(valueSensor)
 	{
 		case 7:        
+		{
 			position_sensor=1.8;
 			break;
-		case (12 | 15):
+		}
+		case 12:
+		{
 			position_sensor=1.65;
 			break;
+		}
+		case 15 :
+		{
+			position_sensor=1.65;
+			break;
+		}			
 		case 5:
+		{
 			position_sensor=1.4;
 			break;
+		}
 		case 3:
+		{
 			position_sensor=-1.4;
 			break;
+		}
 		case 8:
+		{
 			position_sensor=0;
-			break; 
-		case 0:
-			position_sensor=0;
-		  break;
+			break;
+		}			
+//		case 0:
+//		{
+//			position_sensor=0;
+//		  break;
+//		}
 		case (4 | 9):
+		{
 			position_sensor= -1.65;
 			break;
+		}
 		case 1:
+		{
 			position_sensor=-1.8;
 			break;
+		}
 	}
-	pre_position_sensor=position_sensor;
+	//pre_position_sensor=position_sensor;
 }
 
 float Control_ReadValuePosition(void){
@@ -40,31 +61,32 @@ float Control_ReadValuePosition(void){
 }
 
 void Control_SetMotorLine(float value_position_PID,float ValuePosition)
+{
+	if(ValuePosition==0)
 	{
-	if(value_position_PID==0)
+		Motor_Set_Speed(MOTOR_0,180);
+		Motor_Set_Speed(MOTOR_1,180);
+	}
+	
+	if(value_position_PID<0)
 	{
-		Motor_Set_Speed(MOTOR_0,190);
-		Motor_Set_Speed(MOTOR_1,190);
+		if(ValuePosition<-1.5)
+		{
+			Motor_Set_Speed(MOTOR_0,-160);
+			Motor_Set_Speed(MOTOR_1,value_position_PID*-1);
+		}
+		else
+		{
+			Motor_Set_Speed(MOTOR_0,0);
+			Motor_Set_Speed(MOTOR_1,value_position_PID*-1);	
+		}
 	}
 	if(value_position_PID>0)
 	{
 		if(ValuePosition>1.5)
 		{
-			Motor_Set_Speed(MOTOR_0,150);
-			Motor_Set_Speed(MOTOR_1,value_position_PID);
-		}
-		else
-		{
-			Motor_Set_Speed(MOTOR_0,0);
-			Motor_Set_Speed(MOTOR_1,value_position_PID);	
-		}
-	}
-	if(value_position_PID<0)
-	{
-		if(ValuePosition<-1.5)
-		{
 			Motor_Set_Speed(MOTOR_0,value_position_PID);
-			Motor_Set_Speed(MOTOR_1,150);
+			Motor_Set_Speed(MOTOR_1,-160);
 		}
 		else
 		{
@@ -74,10 +96,11 @@ void Control_SetMotorLine(float value_position_PID,float ValuePosition)
 	}
 }
 	
-float Control_ReadValuePrePosition(void){
-	return pre_position_sensor;
-}
+//float Control_ReadValuePrePosition(void){
+//	return pre_position_sensor;
+//}
 	
+
 
 /*
 function Control by hand

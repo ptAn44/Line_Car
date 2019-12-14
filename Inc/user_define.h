@@ -2,7 +2,7 @@
 #define _USER_DEFINE_H_
 
 /*
-define motor left
+define motor right
 */
 #define MOTOR0_DIR0_PORT 	GPIOB
 #define MOTOR0_DIR1_PORT 	GPIOB
@@ -12,7 +12,7 @@ define motor left
 #define MOTOR0_CHANNEL 		TIM_CHANNEL_3
 
 /*
-define motor right
+define motor left
 */
 #define MOTOR1_DIR0_PORT 	GPIOB
 #define MOTOR1_DIR1_PORT 	GPIOB

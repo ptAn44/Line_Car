@@ -5,7 +5,7 @@
 #include <motor_controller.h>
 #include <sensor_handling.h>
 
-void Control_CalculateValuePosition(int16_t valueSensor);
+void Control_CalculateValuePosition(int valueSensor);
 
 float Control_ReadValuePosition(void);
 
